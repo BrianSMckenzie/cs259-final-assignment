@@ -105,13 +105,12 @@ public class Tests {
 
     // ...
 
-    static int NumberOfFeatures = 8;
+    static int NumberOfFeatures = 10;
     static double[] toFeatureVector(double id, String genre, double runtime, double year, double imdb, double rt, double budget, double boxOffice) {
 
 
         double[] feature = new double[NumberOfFeatures];
-        feature[0] = id;  // We use the movie id as a numeric attribute.
-
+        
         switch (genre) { // We also use represent each movie genre as an integer number:
 
             // had to change this as the original template had the array index and the 1s swapped x
@@ -126,6 +125,9 @@ public class Tests {
             default: Assert(false);
 
         }
+        // this is new went from 61 -> 66%
+        feature [8] = ( rt >= 70 ? 1 : 0) ; // if rotten tomatoes >= 70% then == 1
+        feature [9] = ( imdb >= 7 ? 1 : 0) ; // if imdb >= 7 then == 1
         // That is all. We don't use any other attributes for prediction.
         return feature;
     }
@@ -174,7 +176,6 @@ public class Tests {
                 double budget = Double.parseDouble(values[9]);
                 double runtime = Double.parseDouble(values[10]);
                 boolean likeit = Boolean.parseBoolean(values[11]);
-
 
 
                 dataFeatures[idx] = toFeatureVector(id, genre, runtime, year, imdb, rt, budget, boxOffice);
