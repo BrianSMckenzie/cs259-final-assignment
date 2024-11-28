@@ -142,8 +142,7 @@ public class Tests {
     }
 
     // We have implemented KNN classifier for the K=1 case only. You are welcome to modify it to support any K
-    // removed extra parameter int i from original template didnt do anything
-    static int knnClassify(double[][] trainingData, int[] trainingLabels, double[] testFeature) {
+    static int knnClassify(double[][] trainingData, int[] trainingLabels, double[] testFeature, int k) {
 
         int bestMatch = -1;
         double bestSimilarity = - Double.MAX_VALUE;  // We start with the worst similarity that we can get in Java.
@@ -210,7 +209,7 @@ public class Tests {
 
         int x;
         for (int i = 0; i < trainingData.length; i++) {
-            x = knnClassify(trainingData, trainingLabels, testingData[i]);
+            x = knnClassify(trainingData, trainingLabels, testingData[i], 1);
             if (x == testingLabels[i]) {
                     correctPredictions++;
             }
