@@ -114,7 +114,7 @@ public class Tests {
 
         switch (genre) { // We also use represent each movie genre as an integer number:
 
-
+            // had to change this as the original template had the array index and the 1s swapped x
             case "Action":  feature[0] = 1; break;
             case "Fantasy":   feature[1] = 1; break;
             case "Romance": feature[2] = 1; break;
@@ -136,14 +136,15 @@ public class Tests {
     }
 
     // We have implemented KNN classifier for the K=1 case only. You are welcome to modify it to support any K
-    static int knnClassify(double[][] trainingData, int[] trainingLabels, double[] testFeature, int j ) {
+    // removed extra parameter int i from original template didnt do anything
+    static int knnClassify(double[][] trainingData, int[] trainingLabels, double[] testFeature) {
 
         int bestMatch = -1;
         double bestSimilarity = - Double.MAX_VALUE;  // We start with the worst similarity that we can get in Java.
 
         for (int i = 0; i < trainingData.length; i++) {
             double currentSimilarity = similarity(testFeature, trainingData[i]);
-            if (currentSimilarity > bestSimilarity) {   
+            if (currentSimilarity > bestSimilarity) {
                 bestSimilarity = currentSimilarity;
                 bestMatch = i;
             }
@@ -160,14 +161,21 @@ public class Tests {
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(",");
                 // Assuming csv format: MovieID,Title,Genre,Runtime,Year,Lead Actor,Director,IMDB,RT(%),Budget,Box Office Revenue (in million $),Like it
+                // look at original template the formatting and parsing was all kinds of messed up
                 double id = Double.parseDouble(values[0]);
+                String title = values[1];
                 String genre = values[2];
-                double runtime = Double.parseDouble(values[10]);
-                double year = Double.parseDouble(values[3]);
-                double imdb = Double.parseDouble(values[7]);
+                int year = Integer.parseInt(values[3]);
+                String director = values[4];
+                String leadActor = values[5];
                 double rt = Double.parseDouble(values[6]);
-                double budget = Double.parseDouble(values[9]);
+                double imdb = Double.parseDouble(values[7]);
                 double boxOffice = Double.parseDouble(values[8]);
+                double budget = Double.parseDouble(values[9]);
+                double runtime = Double.parseDouble(values[10]);
+                boolean likeit = Boolean.parseBoolean(values[11]);
+
+
 
                 dataFeatures[idx] = toFeatureVector(id, genre, runtime, year, imdb, rt, budget, boxOffice);
                 dataLabels[idx] = Integer.parseInt(values[11]); // Assuming the label is the last column and is numeric
@@ -197,7 +205,7 @@ public class Tests {
 
         int x;
         for (int i = 0; i < trainingData.length; i++) {
-            x = knnClassify(trainingData, trainingLabels, testingData[i], 1);
+            x = knnClassify(trainingData, trainingLabels, testingData[i]);
             if (x == testingLabels[i]) {
                     correctPredictions++;
             }
