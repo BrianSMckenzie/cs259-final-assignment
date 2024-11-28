@@ -105,7 +105,7 @@ public class Tests {
 
     // ...
 
-    static int NumberOfFeatures = 7;
+    static int NumberOfFeatures = 8;
     static double[] toFeatureVector(double id, String genre, double runtime, double year, double imdb, double rt, double budget, double boxOffice) {
 
 
@@ -115,14 +115,14 @@ public class Tests {
         switch (genre) { // We also use represent each movie genre as an integer number:
 
 
-            case "Action":  feature[1] = 0; break;
+            case "Action":  feature[0] = 1; break;
             case "Fantasy":   feature[1] = 1; break;
-            case "Romance": feature[1] = 2; break;
-            case "Sci-Fi": feature[1] = 3; break;
-            case "Adventure": feature[1] = 4; break;
-            case "Horror": feature[1] = 5; break;
-            case "Comedy": feature[1] = 6; break;
-            case "Thriller": feature[1] = 7; break;
+            case "Romance": feature[2] = 1; break;
+            case "Sci-Fi": feature[3] = 1; break;
+            case "Adventure": feature[4] = 1; break;
+            case "Horror": feature[5] = 1; break;
+            case "Comedy": feature[6] = 1; break;
+            case "Thriller": feature[7] = 1; break;
             default: Assert(false);
 
         }
